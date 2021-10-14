@@ -29,7 +29,9 @@
            var MIN_DISTANCE_BETWEEN_ROBOTS = 400;
            var MAX_DISTANCE_BETWEEN_ROBOTS = 1200;
            var MAX_ACTIVE_ROBOTS = 3;
-           var SCREENSHAKE_RADIUS = 16;
+           var SCREENSHAKE_RADIUS = 32;
+
+           var NANONAUT_MAX_HEALTH = 100;
 
            // Setup
            var canvas = document.createElement('canvas');
@@ -88,6 +90,8 @@
            var cameraX = 0;
            var cameraY = 0;
            var screenshake = false;
+
+           var nanonautHealth = NANONAUT_MAX_HEALTH;
 
            window.addEventListener('keydown', onKeyDown);
            window.addEventListener('keyup', onKeyUp);
@@ -181,6 +185,7 @@
             var nanonautTouchedARobot = updateRobots();
             if (nanonautTouchedARobot) {
                 screenshake = true;
+                if (nanonautHealth > 0) nanonautHealth -= 1;
             }
            }
 
@@ -307,6 +312,12 @@
                     nanonautFrameNr,
                     nanonautSpriteSheet
 		);
+
+               // Draw the health bar
+               c.fillStyle = 'red';
+               c.fillRect(400, 10, nanonautHealth / NANONAUT_MAX_HEALTH * 380, 20);
+               c.strokeStyle = 'red';
+               c.strokeRect(400, 10, 380, 20);
 
            }
            // Draw Animated Sprite
