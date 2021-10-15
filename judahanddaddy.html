@@ -31,7 +31,10 @@
            var MAX_ACTIVE_ROBOTS = 3;
            var SCREENSHAKE_RADIUS = 32;
 
-           var NANONAUT_MAX_HEALTH = 100;
+           var NANONAUT_MAX_HEALTH = 20;
+
+           var PLAY_GAME_MODE = 0;
+           var GAME_OVER_GAME_MODE = 1;
 
            // Setup
            var canvas = document.createElement('canvas');
@@ -90,6 +93,7 @@
            var cameraX = 0;
            var cameraY = 0;
            var screenshake = false;
+           var gameMode = PLAY_GAME_MODE;
 
            var nanonautHealth = NANONAUT_MAX_HEALTH;
 
@@ -143,6 +147,7 @@
 
            // Update
            function update() {
+               if (gameMode != PLAY_GAME_MODE) return;
 
             gameFrameCounter = gameFrameCounter + 1;
             // Update Nanonaut
@@ -186,6 +191,12 @@
             if (nanonautTouchedARobot) {
                 screenshake = true;
                 if (nanonautHealth > 0) nanonautHealth -= 1;
+            }
+
+            // Check if the game is over
+            if (nanonautHealth <= 0) {
+                gameMode = GAME_OVER_GAME_MODE;
+                screenshake = false;
             }
            }
 
@@ -312,12 +323,23 @@
                     nanonautFrameNr,
                     nanonautSpriteSheet
 		);
+               // Draw the distance the Nanonaut has travelled
+               var nanonautDistance = nanonautX / 100;
+               c.fillStyle = 'black';
+               c.font = '48px sans-serif';
+               c.fillText(nanonautDistance.toFixed(0) + 'm', 20, 40);
 
                // Draw the health bar
                c.fillStyle = 'red';
                c.fillRect(400, 10, nanonautHealth / NANONAUT_MAX_HEALTH * 380, 20);
                c.strokeStyle = 'red';
                c.strokeRect(400, 10, 380, 20);
+
+               if (gameMode == GAME_OVER_GAME_MODE) {
+                   c.fillStyle = 'black';
+                   c.font = '96px sans-serif';
+                   c.fillText('GAME OVER', 120, 300);
+               }
 
            }
            // Draw Animated Sprite
@@ -334,6 +356,8 @@
                 screenX, screenY,                                     // The position on screen.
                 spriteSheet.spriteWidth, spriteSheet.spriteHeight     // The size on screen.
 		        );
+            
+
 	        }
         </script>
     </body>
