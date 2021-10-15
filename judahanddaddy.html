@@ -202,7 +202,7 @@
             }
 
             // Update Nanonaut speed
-            NANONAUT_X_SPEED = 5 + (nanonautX/5000);
+            NANONAUT_X_SPEED = 5 + (nanonautX/3000);
            }
 
            function updateRobots() {
@@ -343,7 +343,12 @@
                if (gameMode == GAME_OVER_GAME_MODE) {
                    c.fillStyle = 'black';
                    c.font = '96px sans-serif';
-                   c.fillText('GAME OVER', 120, 300);
+                   c.fillText('GAME OVER', 110, 200);
+               }
+               if (gameMode == GAME_OVER_GAME_MODE) {
+                   c.fillStyle = 'black';
+                   c.font = '48px sans-serif';
+                   c.fillText('THANKS FOR PLAYING   - JUDAH', 20, 250);
                }
 
            }
