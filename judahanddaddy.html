@@ -14,6 +14,8 @@
            var GROUND_Y = 540; 
            var NANONAUT_Y_ACCELERATION = 1;
            var NANONAUT_X_SPEED = 5;
+           
+
            var SPACE_KEYCODE = 32;
            var NANONAUT_JUMP_SPEED = 20;
 
@@ -26,8 +28,8 @@
            var ROBOT_NR_ANIMATION_FRAMES = 9;
            var ROBOT_ANIMATION_SPEED = 5;
            var ROBOT_X_SPEED = 4;
-           var MIN_DISTANCE_BETWEEN_ROBOTS = 400;
-           var MAX_DISTANCE_BETWEEN_ROBOTS = 1200;
+           var MIN_DISTANCE_BETWEEN_ROBOTS = 700;
+           var MAX_DISTANCE_BETWEEN_ROBOTS = 1400;
            var MAX_ACTIVE_ROBOTS = 3;
            var SCREENSHAKE_RADIUS = 32;
 
@@ -198,6 +200,9 @@
                 gameMode = GAME_OVER_GAME_MODE;
                 screenshake = false;
             }
+
+            // Update Nanonaut speed
+            NANONAUT_X_SPEED = 5 + (nanonautX/5000);
            }
 
            function updateRobots() {
